@@ -2,7 +2,7 @@ import openai
 import os
 import chainlit as cl
 from dotenv import load_dotenv
-from prompts import SYSTEM_PROMPT
+from prompts import SYSTEM_PROMPT, CONTEXT
 from langsmith import traceable
 from langsmith.wrappers import wrap_openai
 
@@ -45,7 +45,6 @@ gen_kwargs = {
     "max_tokens": 500
 }
 
-
 @cl.on_message
 @traceable
 async def on_message(message: cl.Message):
@@ -53,8 +52,9 @@ async def on_message(message: cl.Message):
     message_history = cl.user_session.get("message_history", [])
 
     if ENABLE_SYSTEM_PROMPT and (not message_history or message_history[0].get("role") != "system"):
-        system_prompt_content = SYSTEM_PROMPT
-        message_history.insert(0, {"role": "system", "content": system_prompt_content})
+        filled_prompt = SYSTEM_PROMPT
+        filled_prompt += "\n" + CONTEXT
+        message_history.insert(0, {"role": "system", "content": filled_prompt})
 
 
     message_history.append({'role': 'user', 'content': message.content})

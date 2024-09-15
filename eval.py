@@ -51,7 +51,8 @@ def prompt_compliance_evaluator(run: Run, example: Example) -> dict:
     Also provide a brief explanation for your score.
     Rules for evaluation: 
     1. How relevant the answer is to the question
-    2. Is the answer taking into account the user requirement (feature set), budget , user age 
+    2. Is the answer taking into account the user requirement (feature set), budget , user age
+    3. Whether pros and cons are provided in the response 
 
     Respond in the following JSON format:
     {{
