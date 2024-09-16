@@ -29,9 +29,9 @@ configurations = {
 }
 
 # Choose configuration
-config_key = "openai_gpt-4"
-# config_key = "mistral_7B_instruct"
-#config_key = "mistral_7B"
+# config_key = "openai_gpt-4"
+config_key = "mistral_7B_instruct"
+# config_key = "mistral_7B"
 
 # Get selected configuration
 config = configurations[config_key]

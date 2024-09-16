@@ -3,6 +3,7 @@ from langsmith.evaluation import evaluate, LangChainStringEvaluator
 from langsmith.schemas import Run, Example
 from openai import OpenAI
 import json
+import os
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -61,8 +62,15 @@ def prompt_compliance_evaluator(run: Run, example: Example) -> dict:
     }}
     """
 
+    #TODO remove this for openai
+    client = OpenAI(
+        base_url=os.getenv("MISTRAL_7B_INSTRUCT_ENDPOINT"),
+        api_key=os.getenv("RUNPOD_API_KEY")
+    )
+
     response = client.chat.completions.create(
-        model="gpt-4o",
+        # model="gpt-4o",
+        model="mistralai/Mistral-7B-Instruct-v0.2",
         messages=[
             {"role": "system",
              "content": "You are an AI assistant tasked with evaluating the compliance of model outputs to given prompts and conversation context."},
